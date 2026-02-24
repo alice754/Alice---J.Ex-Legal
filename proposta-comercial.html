@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta Comercial · NexaDigital</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050a14;
+    --surface: #0b1425;
+    --surface2: #0f1e35;
+    --cyan: #00e5ff;
+    --violet: #7c3aed;
+    --violet-light: #a855f7;
+    --green: #00f5a0;
+    --orange: #ff6b35;
+    --text: #e2eaf7;
+    --muted: #5a7a9e;
+    --border: rgba(0, 229, 255, 0.12);
+    --glow-cyan: 0 0 40px rgba(0,229,255,0.25);
+    --glow-violet: 0 0 40px rgba(124,58,237,0.35);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* GRID BG */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ORBS */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+    animation: float 8s ease-in-out infinite;
+  }
+  .orb1 { width: 500px; height: 500px; background: var(--violet); top: -150px; right: -100px; }
+  .orb2 { width: 350px; height: 350px; background: var(--cyan); bottom: 10%; left: -80px; animation-delay: -4s; }
+  .orb3 { width: 250px; height: 250px; background: var(--green); bottom: 30%; right: 10%; animation-delay: -2s; opacity: 0.2; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+
+  /* LAYOUT */
+  .shell {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 0 48px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 60px;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #fff;
+  }
+  .logo span { color: var(--cyan); }
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+
+  /* SLIDES NAV */
+  .slides-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .slide-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 10px 22px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+  }
+  .slide-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+  .slide-btn.active {
+    background: linear-gradient(135deg, var(--violet), var(--cyan));
+    border-color: transparent;
+    color: #fff;
+    box-shadow: var(--glow-cyan);
+  }
+
+  /* SLIDE */
+  .slide { display: none; animation: fadeIn 0.5s ease; }
+  .slide.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* HERO HEADER */
+  .slide-header {
+    margin-bottom: 48px;
+  }
+  .slide-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 16px;
+  }
+  .slide-tag::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--cyan);
+  }
+  .slide-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .slide-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--cyan), var(--violet-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .slide-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 300;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  /* PRICING GRID */
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .plan-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px 28px;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .plan-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0,229,255,0.3);
+    box-shadow: var(--glow-cyan);
+  }
+  .plan-card.recommended {
+    border-color: var(--cyan);
+    background: linear-gradient(145deg, var(--surface2), rgba(0,229,255,0.05));
+    box-shadow: var(--glow-cyan);
+  }
+
+  .plan-rec-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, var(--violet), var(--cyan));
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .plan-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+  .plan-icon.cyan-bg { background: rgba(0,229,255,0.1); }
+  .plan-icon.violet-bg { background: rgba(124,58,237,0.15); }
+  .plan-icon.green-bg { background: rgba(0,245,160,0.1); }
+
+  .plan-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .plan-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .plan-price sup {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--muted);
+    vertical-align: super;
+  }
+  .plan-period {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .plan-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 20px;
+  }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .plan-features li .check {
+    color: var(--cyan);
+    font-size: 0.9rem;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+  .plan-features li .x-mark {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+  .plan-features li.muted { color: var(--muted); }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(0,229,255,0.08));
+    border: 1px solid rgba(124,58,237,0.4);
+    border-radius: 20px;
+    padding: 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .highlight-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .highlight-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--violet-light);
+    margin-bottom: 8px;
+  }
+  .highlight-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .highlight-text {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* BENEFITS */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .benefit-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 22px;
+    transition: all 0.3s;
+  }
+  .benefit-card:hover {
+    border-color: rgba(0,245,160,0.3);
+    transform: translateY(-4px);
+  }
+  .benefit-emoji { font-size: 1.5rem; margin-bottom: 12px; }
+  .benefit-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .benefit-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+  /* TOTAL SLIDE */
+  .total-hero {
+    background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(0,229,255,0.1));
+    border: 1px solid rgba(0,229,255,0.25);
+    border-radius: 24px;
+    padding: 48px 40px;
+    text-align: center;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .total-hero::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: var(--violet);
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.2;
+    pointer-events: none;
+  }
+  .total-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 16px;
+  }
+  .total-value {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 800;
+    background: linear-gradient(90deg, #fff, var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .total-period {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .total-saving {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,245,160,0.1);
+    border: 1px solid rgba(0,245,160,0.3);
+    color: var(--green);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 100px;
+  }
+
+  .summary-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .summary-product {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .summary-plan {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .summary-price { font-size: 0.9rem; color: var(--cyan); }
+
+  .points-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+  .point-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 0.88rem;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .point-item:hover { border-color: rgba(0,229,255,0.25); }
+  .point-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--cyan);
+    background: rgba(0,229,255,0.08);
+    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .cta-primary {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--violet), var(--cyan));
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 0.3px;
+  }
+  .cta-primary:hover { opacity: 0.85; transform: translateY(-2px); box-shadow: var(--glow-cyan); }
+  .cta-secondary {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 14px 32px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .cta-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .summary-row { grid-template-columns: 1fr; }
+    .plans-grid { grid-template-columns: 1fr; }
+    .total-value { font-size: 3.5rem; }
+    .highlight-box { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<div class="shell">
+  <nav>
+    <div class="logo">Nexa<span>Digital</span></div>
+    <div class="badge">Proposta Comercial · 2025</div>
+  </nav>
+
+  <!-- SLIDE NAVIGATION -->
+  <div class="slides-nav">
+    <button class="slide-btn active" onclick="showSlide(0, this)">01 · Produto Alpha</button>
+    <button class="slide-btn" onclick="showSlide(1, this)">02 · Produto Beta</button>
+    <button class="slide-btn" onclick="showSlide(2, this)">03 · Proposta Completa</button>
+  </div>
+
+  <!-- SLIDE 1: PRODUTO X (Alpha) -->
+  <div class="slide active" id="slide-0">
+    <div class="slide-header">
+      <div class="slide-tag">Produto 01</div>
+      <h1 class="slide-title">Alpha Suite —<br><em>Planos e Preços</em></h1>
+      <p class="slide-sub">Escolha o plano ideal para escalar sua operação digital com inteligência e eficiência.</p>
+    </div>
+
+    <div class="plans-grid">
+      <!-- Plano Starter -->
+      <div class="plan-card">
+        <div class="plan-icon cyan-bg">🚀</div>
+        <div class="plan-name">Starter</div>
+        <div class="plan-price"><sup>R$</sup>297</div>
+        <div class="plan-period">/mês · cobrado anualmente</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Até 3 usuários</li>
+          <li><span class="check">✓</span> 10 GB de armazenamento</li>
+          <li><span class="check">✓</span> Painel de analytics básico</li>
+          <li><span class="check">✓</span> Suporte via e-mail</li>
+          <li class="muted"><span class="x-mark">✕</span> Automações avançadas</li>
+          <li class="muted"><span class="x-mark">✕</span> API & integrações</li>
+        </ul>
+      </div>
+
+      <!-- Plano Pro (Recomendado) -->
+      <div class="plan-card recommended">
+        <div class="plan-rec-badge">⚡ Recomendado</div>
+        <div class="plan-icon violet-bg">💎</div>
+        <div class="plan-name">Pro Z</div>
+        <div class="plan-price"><sup>R$</sup>697</div>
+        <div class="plan-period">/mês · cobrado anualmente</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Usuários ilimitados</li>
+          <li><span class="check">✓</span> 100 GB de armazenamento</li>
+          <li><span class="check">✓</span> Analytics avançado + IA</li>
+          <li><span class="check">✓</span> Automações ilimitadas</li>
+          <li><span class="check">✓</span> API & integrações nativas</li>
+          <li><span class="check">✓</span> Suporte prioritário 24/7</li>
+        </ul>
+      </div>
+
+      <!-- Plano Enterprise -->
+      <div class="plan-card">
+        <div class="plan-icon green-bg">🏢</div>
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">Custom</div>
+        <div class="plan-period">sob consulta</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Tudo do Pro Z</li>
+          <li><span class="check">✓</span> SLA dedicado</li>
+          <li><span class="check">✓</span> Onboarding exclusivo</li>
+          <li><span class="check">✓</span> Infraestrutura dedicada</li>
+          <li><span class="check">✓</span> Customizações sob demanda</li>
+          <li><span class="check">✓</span> Gerente de conta exclusivo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-icon">💡</div>
+      <div>
+        <div class="highlight-label">Por que escolher o Pro Z?</div>
+        <div class="highlight-title">A relação custo-benefício ideal para crescer</div>
+        <div class="highlight-text">O plano Pro Z oferece todas as funcionalidades críticas para operações em escala, com automações que economizam até 15h/semana por equipe e analytics com IA que aumentam conversões em média 34%.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: PRODUTO Y (Beta) -->
+  <div class="slide" id="slide-1">
+    <div class="slide-header">
+      <div class="slide-tag">Produto 02</div>
+      <h1 class="slide-title">Beta Flow —<br><em>Planos e Preços</em></h1>
+      <p class="slide-sub">Gerencie fluxos digitais com uma plataforma projetada para times ágeis e resultados rápidos.</p>
+    </div>
+
+    <div class="plans-grid">
+      <!-- Plano Basic -->
+      <div class="plan-card">
+        <div class="plan-icon cyan-bg">⚙️</div>
+        <div class="plan-name">Basic</div>
+        <div class="plan-price"><sup>R$</sup>197</div>
+        <div class="plan-period">/mês · cobrado anualmente</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> 5 fluxos ativos</li>
+          <li><span class="check">✓</span> 1.000 execuções/mês</li>
+          <li><span class="check">✓</span> Conectores básicos (10)</li>
+          <li><span class="check">✓</span> Histórico de 7 dias</li>
+          <li class="muted"><span class="x-mark">✕</span> Lógica condicional</li>
+          <li class="muted"><span class="x-mark">✕</span> Webhooks personalizados</li>
+        </ul>
+      </div>
+
+      <!-- Plano Growth Z (Recomendado) -->
+      <div class="plan-card recommended">
+        <div class="plan-rec-badge">⚡ Recomendado</div>
+        <div class="plan-icon violet-bg">🌊</div>
+        <div class="plan-name">Growth Z</div>
+        <div class="plan-price"><sup>R$</sup>497</div>
+        <div class="plan-period">/mês · cobrado anualmente</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Fluxos ilimitados</li>
+          <li><span class="check">✓</span> 50.000 execuções/mês</li>
+          <li><span class="check">✓</span> +80 conectores nativos</li>
+          <li><span class="check">✓</span> Lógica condicional avançada</li>
+          <li><span class="check">✓</span> Webhooks personalizados</li>
+          <li><span class="check">✓</span> Histórico de 90 dias</li>
+        </ul>
+      </div>
+
+      <!-- Plano Scale -->
+      <div class="plan-card">
+        <div class="plan-icon green-bg">📈</div>
+        <div class="plan-name">Scale</div>
+        <div class="plan-price">Custom</div>
+        <div class="plan-period">sob consulta</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Tudo do Growth Z</li>
+          <li><span class="check">✓</span> Execuções ilimitadas</li>
+          <li><span class="check">✓</span> Instância dedicada</li>
+          <li><span class="check">✓</span> White-label disponível</li>
+          <li><span class="check">✓</span> Conformidade LGPD/GDPR</li>
+          <li><span class="check">✓</span> Suporte premium 24/7</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-icon">🔗</div>
+      <div>
+        <div class="highlight-label">Por que escolher o Growth Z?</div>
+        <div class="highlight-title">Automatize sem limites operacionais</div>
+        <div class="highlight-text">O Growth Z foi desenhado para times que precisam de velocidade e flexibilidade. Com 80+ integrações e lógica condicional avançada, você cobre 100% dos fluxos do seu negócio sem escrever uma linha de código.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: PROPOSTA COMPLETA -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <div class="slide-tag">Proposta Completa</div>
+      <h1 class="slide-title">Pacote <em>Z Bundle</em> —<br>Solução Integrada</h1>
+      <p class="slide-sub">Combine Alpha Suite Pro Z + Beta Flow Growth Z e tenha um ecossistema digital completo com condições exclusivas.</p>
+    </div>
+
+    <div class="total-hero">
+      <div class="total-label">Investimento Total · Pacote Z Bundle</div>
+      <div class="total-value">R$ 997</div>
+      <div class="total-period">/mês · cobrado anualmente · equivale a R$ 11.964/ano</div>
+      <div class="total-saving">🎯 Economia de R$ 2.364/ano vs. contratação separada</div>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="summary-product">Produto 01</div>
+        <div class="summary-plan">Alpha Suite · Pro Z</div>
+        <div class="summary-price">R$ 697/mês</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-product">Produto 02</div>
+        <div class="summary-plan">Beta Flow · Growth Z</div>
+        <div class="summary-price">R$ 497/mês</div>
+      </div>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-emoji">🔒</div>
+        <div class="benefit-title">Segurança Enterprise</div>
+        <div class="benefit-desc">Criptografia ponta a ponta, autenticação 2FA e conformidade total com LGPD.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-emoji">⚡</div>
+        <div class="benefit-title">Onboarding Exclusivo</div>
+        <div class="benefit-desc">Sessão de implementação guiada inclusa sem custo adicional para clientes do Bundle.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-emoji">🤝</div>
+        <div class="benefit-title">Gerente Dedicado</div>
+        <div class="benefit-desc">Um ponto de contato exclusivo para suporte estratégico e técnico unificado.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-emoji">📊</div>
+        <div class="benefit-title">Dashboard Integrado</div>
+        <div class="benefit-desc">Visão unificada dos dois produtos em um único painel de controle inteligente.</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <div style="font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px;">Pontos Importantes</div>
+      <div class="points-list">
+        <div class="point-item">
+          <div class="point-num">01</div>
+          Contrato anual com renovação automática · cancelamento com 30 dias de aviso.
+        </div>
+        <div class="point-item">
+          <div class="point-num">02</div>
+          Preços fixos garantidos por 12 meses sem reajuste durante a vigência.
+        </div>
+        <div class="point-item">
+          <div class="point-num">03</div>
+          Migração de dados inclusa para clientes que vêm de outra plataforma.
+        </div>
+        <div class="point-item">
+          <div class="point-num">04</div>
+          Período de teste de 14 dias gratuitos antes do início da cobrança.
+        </div>
+        <div class="point-item">
+          <div class="point-num">05</div>
+          Desconto adicional disponível para pagamento à vista do período anual.
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <button class="cta-primary">Contratar Z Bundle agora</button>
+      <button class="cta-secondary">Agendar demonstração</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showSlide(index, btn) {
+    document.querySelectorAll('.slide').forEach((s, i) => {
+      s.classList.toggle('active', i === index);
+    });
+    document.querySelectorAll('.slide-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
